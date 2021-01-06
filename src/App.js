@@ -126,8 +126,10 @@ export default function App() {
             <Form.Group>
               <Form.Label htmlFor="senha">Senha</Form.Label>
               <Form.Control
-                type="senha"
+                type="password"
+                name="senha"
                 id="senha"
+                ref={register}
                 aria-describedby="senhaBlock"
               />
               <Form.Text id="senhaBlock" muted>
