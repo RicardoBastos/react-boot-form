@@ -9,7 +9,9 @@ import * as yup from "yup";
 
 const schema = yup.object({
   nome: yup.string().required("Campo é obrigatório"),
-  fruta: yup.string().required("Campo é obrigatório")
+  fruta: yup.string().required("Campo é obrigatório"),
+  termo: yup.boolean().oneOf([true], "Precisa aceitar os termos"),
+  estudar: yup.boolean().required()
 });
 
 export default function App() {
@@ -20,7 +22,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <Form style={{ width: "300px" }} onSubmit={handleSubmit(onSubmit)}>
+      <Form
+        noValidate
+        style={{ width: "300px" }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Form.Group controlId="frmNome">
           <Form.Label>Nome</Form.Label>
           <Form.Control
@@ -56,6 +62,52 @@ export default function App() {
           <Form.Control.Feedback type="invalid">
             {errors.fruta?.message}
           </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Check
+            required
+            name="termo"
+            label="Aceita os termos?"
+            onChange={() => {}}
+            isInvalid={!!errors.termo}
+            feedback={errors.termo?.message}
+            ref={register}
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Check
+            type="switch"
+            id="viajar"
+            name="viajar"
+            label="Deseja viajar esse ano?"
+            ref={register}
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Pretente estudar esse ano?</Form.Label>
+          <Form.Check
+            custom
+            name="estudar"
+            type="radio"
+            label="Sim"
+            ref={register}
+            id="estudarSim"
+            value="true"
+            isInvalid={!!errors.estudar}
+          />
+          <Form.Check
+            custom
+            id="estudarNao"
+            name="estudar"
+            type="radio"
+            label="Não"
+            value="false"
+            isInvalid={!!errors.estudar}
+            ref={register}
+          />
         </Form.Group>
         <Button type="submit">Enviar</Button>
       </Form>
